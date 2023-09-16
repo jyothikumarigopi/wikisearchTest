@@ -1,0 +1,47 @@
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.chrome.ChromeDriver;
+
+public class TimeConventor {
+    public static void main(String[] args){
+        System.setProperty("webdriver.chromedriver.driver","C:\\Users\\JYOTHIKUMARI\\Downloads\\chromedriver_win32\\chromedriver.exe");
+        WebDriver driver=new ChromeDriver();
+        driver.get("https://qatimeconverter.ccbp.tech/");
+
+        WebElement userHour=driver.findElement(By.xpath("//input[position()=1]"));
+        userHour.sendKeys("2");
+
+        WebElement secondFeild=driver.findElement(By.xpath("//input[position()=2]"));
+        secondFeild.sendKeys("30");
+
+        WebElement btn=driver.findElement(By.xpath("//button[contains(@id,'convertBtn')]"));
+        btn.click();
+
+
+        WebElement para=driver.findElement(By.xpath("//p[starts-with(@class,'converted-')]"));
+        String actual=para.getText();
+        String expe="9000s";
+        if(expe.equals(actual)){
+            System.out.println("matches text");
+        }else{
+            System.out.println("not matches");
+        }
+
+        userHour.clear();
+        secondFeild.clear();
+        btn.click();
+
+        WebElement hourMsg=driver.findElement(By.xpath("//p[starts-with(@class,'error-')]"));
+         String actHrError=hourMsg.getText();
+         String ExpectHrError="Please enter a valid number of hours.";
+
+         if(ExpectHrError.equals(actHrError)){
+             System.out.println("erroe prited");
+         }else{
+             System.out.println("errpr not printed");
+         }
+
+
+    }
+}
